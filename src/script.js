@@ -54,7 +54,7 @@ const mockOrgs = [
     }
 ];
 
-function createBadge(content, className, iconSrc) {
+function createBadge(content, className, iconSrc = null) {
     const badgeContainer = document.createElement('div');
     badgeContainer.className = `badge ${className}`;
     if (iconSrc) {
@@ -186,27 +186,192 @@ async function fetchOrgTopRepo(reposUrl, orgName) {
     }
 }
 
+const ghLoadingProgressBar = document.getElementById('ghLoadingProgressBar');
+
 async function loadGithubProfile() {
+    ghLoadingProgressBar.style.display = 'block';
     await fetchGitHubProjects();
     await fetchGitHubOrgs();
     let sorted = ghRepos.sort((a, b) => b.stargazers_count - a.stargazers_count);
     sorted.forEach(repo => {
         createGHRepoCard(repo);
     });
+    ghLoadingProgressBar.style.display = 'none';
 }
 
-loadGithubProfile().then(() => {
-    console.log('GitHub profile loaded successfully.');
-}).catch(error => {
-    console.error('Error loading GitHub profile:', error);
-});
+function addKeyValueRowToTable(table, label, value) {
+    const row = document.createElement('tr');
+
+    const labelCell = document.createElement('td');
+    labelCell.textContent = label;
+    labelCell.className = 'label-cell';
+
+    const valueCell = document.createElement('td');
+    valueCell.appendChild(value);
+    valueCell.className = 'value-cell';
+
+    row.appendChild(labelCell);
+    row.appendChild(valueCell);
+    table.appendChild(row);
+};
+
+// Create a table with key-value pairs from the JSON object
+// and apply a function to the value before displaying it
+function createKeyValueTable(jsonArray, valuefun) {
+    const infoTable = document.createElement('table');
+    infoTable.className = 'info-table';
+
+    for (const [key, val] of Object.entries(jsonArray)) {
+        const label = key.charAt(0).toUpperCase() + key.slice(1); // Capitalize the first letter of the key
+        const value = valuefun(val);
+        addKeyValueRowToTable(infoTable, label, value);
+    }
+
+    return infoTable;
+}
+
+function displayBiodata(biodata) {
+    if (!biodata) return;
+
+    const biodataContainer = document.getElementById('biodataContainer');
+
+    const infoTable = createKeyValueTable(biodata, value => {
+        const valueElement = document.createElement('span');
+        valueElement.textContent = value;
+        return valueElement;
+    });
+
+    biodataContainer.appendChild(infoTable);
+}
+
+function displayEducation(education) {
+    if (!education) return;
+
+    const educationContainer = document.getElementById('educationContainer');
+    const educationList = document.createElement('ul');
+    educationList.className = 'timeline-list';
+
+    education.forEach(edu => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<p>${edu.duration}</p><strong>${edu.institution}</strong><p>${edu.course}</p>`;
+        educationList.appendChild(listItem);
+    });
+
+    educationContainer.appendChild(educationList);
+}
+
+function displayAchievements(achievements) {
+    if (!achievements) return;
+
+    const achievementsContainer = document.getElementById('achievementsContainer');
+    const achievementsList = document.createElement('ul');
+    achievementsList.className = 'timeline-list';
+
+    achievements.forEach(achievement => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<p>${achievement.year}</p><strong>${achievement.title}</strong><p>${achievement.description}</p>`;
+        if (achievement.link)
+            listItem.innerHTML += `<a href="${achievement.link}" target="_blank">Link</a>`;
+        achievementsList.appendChild(listItem);
+    });
+
+    achievementsContainer.appendChild(achievementsList);
+}
+
+function displaySocialMediaLinks(socialMediaLinks) {
+    if (!socialMediaLinks) return;
+
+    const socialsContainer = document.getElementById('socialsContainer');
+
+    const infoTable = createKeyValueTable(socialMediaLinks, url => {
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.textContent = url;
+        return link;
+    });
+
+    socialsContainer.appendChild(infoTable);
+}
+
+function displaySkills(detailsConfig) {
+    if (!detailsConfig || !detailsConfig.programmingSkills
+        || !detailsConfig.techSkills) return;
+
+    const psBadgeArea = document.getElementById('psBadgeArea');
+    for (const skill of detailsConfig.programmingSkills) {
+        const badge = createBadge(skill, 'badge-skill');
+        psBadgeArea.appendChild(badge);
+    }
+    const tsBadgeArea = document.getElementById('tsBadgeArea');
+    for (const skill of detailsConfig.techSkills) {
+        const badge = createBadge(skill, 'badge-skill');
+        tsBadgeArea.appendChild(badge);
+    }
+}
+
+function loadDetails(detailsConfig) {
+    if (!detailsConfig) return;
+
+    console.log('Details Config:', detailsConfig);
+
+    displayBiodata(detailsConfig.biodata);
+    displayEducation(detailsConfig.education);
+    displayAchievements(detailsConfig.achievements);
+    displaySocialMediaLinks(detailsConfig.socialMediaLinks);
+    displaySkills(detailsConfig);
+}
+
+async function loadProfile() {
+
+    try {
+        const response = await fetch('./details.config.json');
+        const detailsConfig = await response.json();
+        await loadDetails(detailsConfig);
+
+        await loadGithubProfile();
+        console.log('Profile Loaded Successfully.');
+    }
+    catch (error) {
+        console.error('Error loading profile data:', error);
+        showMessagePopup('Error loading profile data. Please try again later.');
+    }
+}
+
+loadProfile();
 
 const header = document.getElementById("header");
 window.addEventListener("scroll", () => {
-  const currentScroll = window.pageYOffset;
-  if (currentScroll > 50) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 50) {
+        header.classList.add("sticky");
+    } else {
+        header.classList.remove("sticky");
+    }
+});
+
+const messagePopup = document.getElementById('messagePopup');
+const closePopup = document.getElementById('closePopup');
+
+function showMessagePopup(message) {
+    const messageText = document.getElementById('popupText');
+    messageText.textContent = message;
+    messagePopup.setAttribute('aria-hidden', 'false');
+}
+
+function hideMessagePopup() {
+    messagePopup.setAttribute('aria-hidden', 'true');
+}
+
+closePopup.addEventListener('click', () => hideMessagePopup());
+
+messagePopup.addEventListener('click', (event) => {
+    if (event.target === messagePopup) hideMessagePopup();
+});
+
+const hamburgerMenu = document.getElementById('hamburgerMenu');
+const navList = document.getElementById('navList');
+
+hamburgerMenu.addEventListener('click', () => {
+    navList.classList.toggle('navlist-visible');
 });

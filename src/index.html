@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" width="device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShankarBUS</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/ShankarBUS">
 </head>
 
 <body>
@@ -14,28 +15,74 @@
     <header id="header" class="page-header">
         <img src="https://avatars.githubusercontent.com/ShankarBUS" alt="ShankarBUS" class="avatar">
         <label>ShankarBUS</label>
-        <a href="#github-stats">GitHub Stats</a>
-        <a href="#education">Education</a>
+        <button class="hamburger" id="hamburgerMenu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <nav id="navBar" class="navbar">
+            <ul id="navList" class="navlist">
+                <li><a href="#basic-info">Basic Info</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#socials">Socials</a></li>
+                <li><a href="#github-stats">GitHub Stats</a></li>
+                <li><a href="#skills">Skills</a></li>
+            </ul>
+        </nav>
     </header>
-
-    <section id="main-info">
-        <div class="group">
-            <h2 id="github-stats">GitHub Stats</h2>
-            <div class="sub-group">
-                <h3>Organizations</h3>
-                <div id="orgsContainer" class="cards-grid"></div>
+    <div id="main">
+        <div class="column">
+            <div class="group">
+                <h2 id="basic-info">Basic Info</h2>
+                <div id="biodataContainer" class="dataContainer"></div>
             </div>
-            <div class="sub-group">
-                <h3>Projects</h3>
-                <div id="projectsContainer" class="cards-grid"></div>
+            <div class="group">
+                <h2 id="education">Education</h2>
+                <div id="educationContainer" class="dataContainer"></div>
+            </div>
+            <div class="group">
+                <h2 id="achievements">Achievements</h2>
+                <div id="achievementsContainer" class="dataContainer"></div>
+            </div>
+            <div class="group">
+                <h2 id="socials">Socials</h2>
+                <div id="socialsContainer" class="dataContainer"></div>
             </div>
         </div>
-        <div class="group">
-            <h2 id="education">Education</h2>
+        <div class="column column-2">
+            <div class="group">
+                <h2 id="github-stats">GitHub Stats</h2>
+                <div class="sub-group">
+                    <h3>Organizations</h3>
+                    <div id="orgsContainer" class="cards-grid"></div>
+                </div>
+                <div class="sub-group">
+                    <h3>Projects</h3>
+                    <div id="projectsContainer" class="cards-grid"></div>
+                </div>
+                <div id="ghLoadingProgressBar" class="loading-progress-bar" aria-hidden="true"></div>
+            </div>
+            <div class="group">
+                <h2 id="skills">Skills</h2>
+                <div class="sub-group">
+                    <h3>Programming</h3>
+                    <div id="psBadgeArea" class="badge-area"></div>
+                </div>
+                <div class="sub-group">
+                    <h3>Tech</h3>
+                    <div id="tsBadgeArea" class="badge-area"></div>
+                </div>
+            </div>
         </div>
-    </section>
+        </section>
 
-    <script src="script.js"></script>
+        <div id="messagePopup" class="popup" aria-hidden="true">
+            <div id="popupContent" class="popup-content">
+                <button id="closePopup" aria-label="Close Popup">OK</button>
+                <p id="popupText"></p>
+            </div>
+        </div>
+        <script type="module" src="script.js"></script>
 </body>
-
 </html>

@@ -90,10 +90,9 @@ body {
     justify-content: flex-start;
     top: 0px;
     left: 0px;
-    width: 100%;
+    max-width: 100%;
     border: 1px solid transparent;
     text-align: center;
-    overflow: hidden;
 }
 
 .sticky {
@@ -109,7 +108,7 @@ body {
     border-width: 1px;
     border-style: solid;
     z-index: 1000;
-    backdrop-filter: blur(10px);
+    backdrop-filter: var(--blur-effect);
 }
 
 header label {
@@ -117,10 +116,73 @@ header label {
     font-weight: 800;
     font-size: 16px;
     display: block;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
     margin: 0px 8px;
+}
+
+.navlist {
+    max-width: 100%;
+    list-style: none;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.navlist li {
+    display: inline-block;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    justify-content: space-between;
+    height: 32px;
+    padding: 10px 8px;
+}
+
+.hamburger div {
+    width: 24px;
+    height: 1px;
+    background-color: var(--text-color);
+}
+
+.hamburger:hover div {
+    background-color: var(--focus-color);
+}
+
+.navbar-visible {
+    display: flex;
+}
+
+@media (max-width: 850px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .navlist {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        position: fixed;
+        top: 50px;
+        left: 160px;
+        background: var(--panel-background);
+        border-radius: var(--control-corner-radius);
+        border-color: var(--border-color);
+        border-width: 1px;
+        border-style: solid;
+        z-index: 1000;
+        backdrop-filter: var(--blur-effect);
+        padding: 8px;
+    }
+
+    .navlist-visible {
+        display: flex;
+    }
 }
 
 h1,
@@ -131,6 +193,17 @@ h5,
 h6 {
     margin-top: 0px;
     margin-bottom: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+p {
+    margin: 0px;
+}
+
+strong {
+    margin: 0px;
 }
 
 .avatar {
@@ -142,11 +215,13 @@ h6 {
 
 a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--focus-color);
+    padding: 4px;
+    border-radius: 4px;
 }
 
 a:hover {
-    color: var(--focus-color);
+    background-color: var(--button-background-color);
 }
 
 button {
@@ -163,14 +238,14 @@ button {
 }
 
 button:hover {
-    border-color: var(--focus-color);
-    color: var(--focus-color);
-    background-color: transparent;
+    background-color: var(--button-active-background-color);
+    color: inherit;
 }
 
 button:active {
-    background-color: var(--button-active-background-color);
-    color: inherit;
+    border-color: var(--focus-color);
+    color: var(--focus-color);
+    background-color: transparent;
 }
 
 .square-button {
@@ -189,15 +264,32 @@ button:active {
     fill: var(--focus-color);
 }
 
-#main-info {
+#main {
     position: relative;
     padding: 20px;
     top: 50px;
     gap: 20px;
+    display: grid;
+}
+
+.column {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: stretch;
+    gap: 20px;
+    width: 100%;
+    grid-column: span 1;
+}
+
+@media (min-width: 1024px) {
+    #main {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .column-2 {
+        grid-column: span 2;
+    }
 }
 
 .group {
@@ -211,7 +303,8 @@ button:active {
     border-radius: var(--control-corner-radius);
     padding: 20px;
     border: 1px solid var(--border-color);
-    backdrop-filter: blur(10px);
+    backdrop-filter: var(--blur-effect);
+    overflow: hidden;
 }
 
 .sub-group {
@@ -222,6 +315,75 @@ button:active {
     align-items: flex-start;
     gap: 10px;
     width: 100%;
+}
+
+.dataContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    background-color: transparent;
+    color: var(--text-color);
+}
+
+.label-cell {
+    font-weight: bold;
+    padding: 8px;
+    border: none;
+    background-color: transparent;
+    color: var(--text-color);
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: auto;
+    max-width: 100px;
+}
+
+.value-cell {
+    padding: 8px;
+    border: none;
+    background-color: transparent;
+    color: var(--text-color);
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100px;
+}
+
+.timeline-list {
+    border: 0px solid var(--focus-color);
+    border-left-width: 1px;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 10px;
+}
+
+.timeline-list li {
+    margin-left: 1em;
+    margin-bottom: 1.5em;
+}
+
+.timeline-list li::before {
+    content: '';
+    display: block;
+    position: relative;
+    margin-bottom: -8px;
+    top: 0.5em;
+    left: calc(-1em - 9px);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--focus-color);
+    border: 4px solid var(--background-color);
 }
 
 .cards-grid {
@@ -237,6 +399,7 @@ button:active {
     justify-content: space-between;
     align-items: flex-start;
     gap: 10px;
+    background-color: var(--button-background-color);
     border: 1px solid var(--border-color);
     border-radius: var(--control-corner-radius);
     padding: 10px;
@@ -244,7 +407,12 @@ button:active {
 }
 
 .card:hover {
-    background-color: var(--accordion-button-hover-background-color);
+    background-color: var(--button-active-background-color);
+    border-color: var(--focus-color);
+}
+
+.card:active {
+    background-color: transparent;
     border-color: var(--focus-color);
 }
 
@@ -277,7 +445,7 @@ button:active {
 
 .badge-area {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: flex-start;
     gap: 10px;
 }
@@ -324,10 +492,6 @@ button:active {
     z-index: -1;
 }
 
-.accordion-item-content p {
-    margin: 0;
-}
-
 footer {
     display: flex;
     gap: 8px;
@@ -343,7 +507,7 @@ footer {
 
 body.results-fetched footer {
     background: var(--panel-background);
-    backdrop-filter: blur(10px);
+    backdrop-filter: var(--blur-effect);
     border: 1px solid var(--border-color);
     bottom: 8px;
     border-radius: var(--control-corner-radius);
@@ -362,7 +526,7 @@ footer p {
     width: 100%;
     height: 100%;
     background-color: var(--smoke-background-color);
-    backdrop-filter: blur(10px);
+    backdrop-filter: var(--blur-effect);
     z-index: 1000;
     justify-content: center;
     align-items: center;

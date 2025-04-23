@@ -1,0 +1,58 @@
+{
+    "biodata": {
+        "name": "Umashankar",
+        "age": "24",
+        "location": "India"
+    },
+    "education": [
+        {
+            "institution": "Tirunelveli Medical College, Tirunelveli.",
+            "course": "Bachelor of Medicine, Bachelor of Surgery (MBBS)",
+            "duration": "2021 - Present"
+        }
+    ],
+    "achievements": [
+        {
+            "title": "Microsoft Store App Awards 2022",
+            "year": 2022,
+            "description": "ModernFlyouts: Winner in the Open Platform Category",
+            "link": "https://blogs.windows.com/windowsdeveloper/2022/05/27/announcing-the-microsoft-store-app-awards-winners/"
+        }
+    ],
+    "socialMediaLinks": {
+        "github": "https://github.com/ShankarBUS",
+        "x": "https://x.com/ShankarBUS",
+        "instagram": "https://instagram.com/b.u.shankar",
+        "discord": "https://discord.com/users/shankarbus",
+        "telegram": "https://t.me/ShankarBUS",
+        "youtube": "https://youtube.com/@ShankarBUS",
+        "email": "mailto:shankarbus04082001@gmail.com"
+    },
+    "programmingSkills": [
+        "C#",
+        "VB.NET",
+        "XAML",
+        "WPF",
+        "UWP",
+        "WinUI",
+        "JS",
+        "HTML",
+        "CSS",
+        "Python",
+        "C++",
+        "Java",
+        "Git",
+        "Unity Game Engine"
+    ],
+    "techSkills" : [
+        "Windows App Development",
+        "Web Development",
+        "Game Development",
+        "Cross Platform App Development",
+        "Blender 3D",
+        "Photoshop",
+        "Video Editing: After Effects, Premiere Pro",
+        "UI Design: Figma",
+        "Microsoft Office"
+    ]
+}
