@@ -18,10 +18,8 @@
     --button-active-background-color: #dfdfdf;
     --accordion-button-hover-background-color: #dfdfdf;
     --focus-color: darkgreen;
-    --green-color: darkgreen;
-    --red-color: darkred;
-    --blue-color: darkblue;
-    --yellow-color: gold;
+    --green-color: yellowgreen;
+    --blue-color: dodgerblue;
     --dotted-background: radial-gradient(#e2e2e2 5%, #ffffff1f 15%);
     --overlay-background: linear-gradient(135deg, #1e90ff2f 0%, #ffffff00 50%, #9acd324f 100%);
 }
@@ -40,9 +38,7 @@
         --accordion-button-hover-background-color: #3a3a3a;
         --focus-color: yellowgreen;
         --green-color: #ccff66;
-        --red-color: #ff6666;
         --blue-color: #66ccff;
-        --yellow-color: #cccc66;
         --dotted-background: radial-gradient(#383838 5%, #0000001f 15%);
         --overlay-background: linear-gradient(135deg, #66ccff2f 0%, #ffffff00 50%, #ccff662f 100%);
     }
@@ -119,6 +115,16 @@ header label {
     margin: 0px 8px;
 }
 
+.nav-smoke-background {
+    display: none;
+    background: var(--smoke-background-color);
+    backdrop-filter: var(--blur-effect);
+    width: 100%;
+    height: 100%;
+    position: fixed !important;
+    z-index: 2;
+}
+
 .navlist {
     max-width: 100%;
     list-style: none;
@@ -132,7 +138,7 @@ header label {
 }
 
 .navlist li {
-    display: inline-block;
+    display: inline;
 }
 
 .hamburger {
@@ -154,10 +160,6 @@ header label {
     background-color: var(--focus-color);
 }
 
-.navbar-visible {
-    display: flex;
-}
-
 @media (max-width: 850px) {
     .hamburger {
         display: flex;
@@ -169,19 +171,22 @@ header label {
         align-items: flex-start;
         position: fixed;
         top: 50px;
-        left: 160px;
+        left: 8px;
         background: var(--panel-background);
         border-radius: var(--control-corner-radius);
         border-color: var(--border-color);
         border-width: 1px;
         border-style: solid;
         z-index: 1000;
-        backdrop-filter: var(--blur-effect);
         padding: 8px;
     }
 
-    .navlist-visible {
+    body.nav-open .navlist {
         display: flex;
+    }
+
+    body.nav-open .nav-smoke-background {
+        display: block;
     }
 }
 
@@ -217,11 +222,17 @@ a {
     text-decoration: none;
     color: var(--focus-color);
     padding: 4px;
-    border-radius: 4px;
+    border-radius: var(--control-corner-radius);
 }
 
 a:hover {
     background-color: var(--button-background-color);
+    color: var(--focus-color);
+}
+
+a:active {
+    background-color: transparent;
+    color: var(--text-color);
 }
 
 button {
@@ -370,20 +381,38 @@ button:active {
 .timeline-list li {
     margin-left: 1em;
     margin-bottom: 1.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    ;
+}
+
+.timeline-list li:last-child {
+    margin-bottom: 1em;
 }
 
 .timeline-list li::before {
     content: '';
     display: block;
     position: relative;
-    margin-bottom: -8px;
-    top: 0.5em;
+    margin-bottom: -20px;
+    top: calc(1em - 4px);
     left: calc(-1em - 9px);
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background-color: var(--focus-color);
     border: 4px solid var(--background-color);
+}
+
+.socials-list {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .cards-grid {
@@ -466,6 +495,19 @@ button:active {
     gap: 4px;
 }
 
+.badge-tskill {
+    background-color: var(--blue-color);
+    border: none;
+    color: #0e0e0e;
+}
+
+.badge-pskill {
+    background-color: var(--green-color);
+    border: none;
+    color: #0e0e0e;
+}
+
+/* 
 .accordion-button {
     width: 100%;
     height: 180px;
@@ -517,6 +559,7 @@ body.results-fetched footer {
 footer p {
     margin: 0px 8px;
 }
+*/
 
 .popup {
     display: none;
@@ -546,6 +589,18 @@ footer p {
     border-radius: var(--control-corner-radius);
     max-width: 400px;
     text-align: center;
+}
+
+body.github-load-error .gh {
+    display: none;
+}
+
+body.github-load-error .gh-error-message {
+    display: block;
+}
+
+.error-message {
+    display: none;
 }
 
 .loading-progress-bar {

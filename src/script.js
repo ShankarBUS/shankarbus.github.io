@@ -1,58 +1,3 @@
-const projectCardsContainer = document.getElementById('projectsContainer');
-const orgCardsContainer = document.getElementById('orgsContainer');
-
-const ghRepos = [];
-
-const mockRepos = [
-    {
-        id: 123456789,
-        name: "awesome-project",
-        full_name: "ShankarBUS/awesome-project",
-        html_url: "https://github.com/ShankarBUS/awesome-project",
-        description: "An awesome project by ShankarBUS.",
-        fork: false,
-        stargazers_count: 42,
-        forks_count: 10,
-        language: "JavaScript"
-    },
-    {
-        id: 987654321,
-        name: "another-cool-project",
-        full_name: "ShankarBUS/another-cool-project",
-        html_url: "https://github.com/ShankarBUS/another-cool-project",
-        description: "Another cool project by ShankarBUS.",
-        fork: false,
-        stargazers_count: 25,
-        forks_count: 5,
-        language: "Python"
-    },
-    {
-        id: 192837465,
-        name: "forked-repo",
-        full_name: "ShankarBUS/forked-repo",
-        html_url: "https://github.com/ShankarBUS/forked-repo",
-        description: "A forked repository.",
-        fork: true,
-        stargazers_count: 0,
-        forks_count: 0,
-        language: "Java"
-    }
-];
-
-const mockOrgs = [
-    {
-        login: "MockOrg1",
-        description: "A mock organization for testing purposes.",
-        url: "https://github.com/MockOrg1",
-        repos_url: "https://api.github.com/orgs/MockOrg1/repos"
-    },
-    {
-        login: "MockOrg2",
-        description: "Another mock organization.",
-        url: "https://github.com/MockOrg2",
-        repos_url: "https://api.github.com/orgs/MockOrg2/repos"
-    }
-];
 
 function createBadge(content, className, iconSrc = null) {
     const badgeContainer = document.createElement('div');
@@ -67,6 +12,12 @@ function createBadge(content, className, iconSrc = null) {
     badgeContainer.appendChild(badge);
     return badgeContainer;
 }
+
+// #region GitHub Profile
+const projectCardsContainer = document.getElementById('projectsContainer');
+const orgCardsContainer = document.getElementById('orgsContainer');
+
+const ghRepos = [];
 
 function createGHRepoCard(project) {
     const card = document.createElement('div');
@@ -102,6 +53,7 @@ function createGHRepoCard(project) {
 
     card.appendChild(badgesContainer);
 
+    card.title = project.html_url;
     card.addEventListener('click', () => {
         window.open(project.html_url, '_blank');
     });
@@ -127,77 +79,78 @@ function createGHOrgCard(org) {
     title.textContent = org.login;
     detailsContainer.appendChild(title);
 
-    const description = document.createElement('p');
-    description.textContent = org.description;
-    card.appendChild(description);
+    if (org.description) {
+        const description = document.createElement('p');
+        description.textContent = org.description;
+        card.appendChild(description);
+    }
 
+    const url = `https://github.com/${org.login}`;
+    card.title = url;
     card.addEventListener('click', () => {
-        window.open(`https://github.com/${org.login}`, '_blank');
+        window.open(url, '_blank');
     });
     orgCardsContainer.appendChild(card);
 }
 
 async function fetchGitHubProjects() {
-    try {
-        const response = await fetch('https://api.github.com/users/ShankarBUS/repos');
-        const projects = await response.json();
+    const response = await fetch('https://api.github.com/users/ShankarBUS/repos');
+    const projects = await response.json();
 
-        const filteredProjects = projects
-            .filter(project => !project.fork);
+    const filteredProjects = projects
+        .filter(project => !project.fork);
 
-        ghRepos.push(...filteredProjects);
-    } catch (error) {
-        console.error('Error fetching GitHub projects, using mock data:', error);
-        ghRepos.push(...mockRepos.filter(project => !project.fork));
-    }
+    ghRepos.push(...filteredProjects);
 }
 
 async function fetchGitHubOrgs() {
-    try {
-        const response = await fetch('https://api.github.com/users/ShankarBUS/orgs');
-        const orgs = await response.json();
-        for (const org of orgs) {
-            createGHOrgCard(org);
-            await fetchOrgTopRepo(org.repos_url, org.login);
-        }
-    } catch (error) {
-        console.error('Error fetching GitHub organizations, using mock data:', error);
-        for (const org of mockOrgs) {
-            createGHOrgCard(org);
-        }
+    const response = await fetch('https://api.github.com/users/ShankarBUS/orgs');
+    const orgs = await response.json();
+    for (const org of orgs) {
+        createGHOrgCard(org);
+        await fetchOrgTopRepo(org.repos_url, org.login);
     }
 }
 
 async function fetchOrgTopRepo(reposUrl, orgName) {
-    try {
-        const response = await fetch(reposUrl);
-        const repos = await response.json();
+    const response = await fetch(reposUrl);
+    const repos = await response.json();
 
-        const filteredRepos = repos.filter(repo => !repo.fork && repo.stargazers_count > 0);
-        const topRepo = filteredRepos.reduce((topRepo, currentRepo) => {
-            return currentRepo.stargazers_count > (topRepo?.stargazers_count || 0) ? currentRepo : topRepo;
-        }, null);
+    const filteredRepos = repos.filter(repo => !repo.fork && repo.stargazers_count > 0);
+    const topRepo = filteredRepos.reduce((topRepo, currentRepo) => {
+        return currentRepo.stargazers_count > (topRepo?.stargazers_count || 0) ? currentRepo : topRepo;
+    }, null);
 
-        if (topRepo) {
-            ghRepos.push(topRepo);
-        }
-    } catch (error) {
-        console.error(`Error fetching repositories for organization ${orgName}:`, error);
+    if (topRepo) {
+        ghRepos.push(topRepo);
     }
 }
 
 const ghLoadingProgressBar = document.getElementById('ghLoadingProgressBar');
-
 async function loadGithubProfile() {
+    document.body.classList.remove('github-load-error');
     ghLoadingProgressBar.style.display = 'block';
-    await fetchGitHubProjects();
-    await fetchGitHubOrgs();
-    let sorted = ghRepos.sort((a, b) => b.stargazers_count - a.stargazers_count);
-    sorted.forEach(repo => {
-        createGHRepoCard(repo);
-    });
+
+    try {
+        await fetchGitHubProjects();
+        await fetchGitHubOrgs();
+        let sorted = ghRepos.sort((a, b) => b.stargazers_count - a.stargazers_count);
+        sorted.forEach(repo => {
+            createGHRepoCard(repo);
+        });
+        ghLoadingProgressBar.style.display = 'none';
+    }
+    catch (error) {
+        console.error('Error loading GitHub profile:', error);
+        document.body.classList.add('github-load-error');
+    }
     ghLoadingProgressBar.style.display = 'none';
 }
+
+// #endregion
+
+// #region Personal Details
+// from details.config.json
 
 function addKeyValueRowToTable(table, label, value) {
     const row = document.createElement('tr');
@@ -215,8 +168,8 @@ function addKeyValueRowToTable(table, label, value) {
     table.appendChild(row);
 };
 
-// Create a table with key-value pairs from the JSON object
-// and apply a function to the value before displaying it
+// Create a table with key-value pairs from a JSON Array
+// and apply a function to the value to get a html element.
 function createKeyValueTable(jsonArray, valuefun) {
     const infoTable = document.createElement('table');
     infoTable.className = 'info-table';
@@ -282,38 +235,41 @@ function displaySocialMediaLinks(socialMediaLinks) {
     if (!socialMediaLinks) return;
 
     const socialsContainer = document.getElementById('socialsContainer');
+    const list = document.createElement('ul');
+    list.className = 'socials-list';
 
-    const infoTable = createKeyValueTable(socialMediaLinks, url => {
+    for (const [name, url] of Object.entries(socialMediaLinks)) {
+        const listItem = document.createElement('li');
         const link = document.createElement('a');
         link.href = url;
         link.target = '_blank';
-        link.textContent = url;
-        return link;
-    });
+        link.textContent = name.charAt(0).toUpperCase() + name.slice(1); // Capitalize the first letter of the key
+        link.className = 'social-link';
+        listItem.appendChild(link);
+        list.appendChild(listItem);
+    }
 
-    socialsContainer.appendChild(infoTable);
+    socialsContainer.appendChild(list);
 }
 
 function displaySkills(detailsConfig) {
     if (!detailsConfig || !detailsConfig.programmingSkills
         || !detailsConfig.techSkills) return;
 
-    const psBadgeArea = document.getElementById('psBadgeArea');
-    for (const skill of detailsConfig.programmingSkills) {
-        const badge = createBadge(skill, 'badge-skill');
-        psBadgeArea.appendChild(badge);
-    }
     const tsBadgeArea = document.getElementById('tsBadgeArea');
     for (const skill of detailsConfig.techSkills) {
-        const badge = createBadge(skill, 'badge-skill');
+        const badge = createBadge(skill, 'badge-tskill');
         tsBadgeArea.appendChild(badge);
+    }
+    const psBadgeArea = document.getElementById('psBadgeArea');
+    for (const skill of detailsConfig.programmingSkills) {
+        const badge = createBadge(skill, 'badge-pskill');
+        psBadgeArea.appendChild(badge);
     }
 }
 
 function loadDetails(detailsConfig) {
     if (!detailsConfig) return;
-
-    console.log('Details Config:', detailsConfig);
 
     displayBiodata(detailsConfig.biodata);
     displayEducation(detailsConfig.education);
@@ -322,15 +278,16 @@ function loadDetails(detailsConfig) {
     displaySkills(detailsConfig);
 }
 
+//#endregion
+
 async function loadProfile() {
 
     try {
         const response = await fetch('./details.config.json');
         const detailsConfig = await response.json();
-        await loadDetails(detailsConfig);
+        loadDetails(detailsConfig);
 
         await loadGithubProfile();
-        console.log('Profile Loaded Successfully.');
     }
     catch (error) {
         console.error('Error loading profile data:', error);
@@ -370,8 +327,12 @@ messagePopup.addEventListener('click', (event) => {
 });
 
 const hamburgerMenu = document.getElementById('hamburgerMenu');
-const navList = document.getElementById('navList');
+const smokeBackground = document.getElementById('smokeBackground');
 
 hamburgerMenu.addEventListener('click', () => {
-    navList.classList.toggle('navlist-visible');
+    document.body.classList.toggle('nav-open');
+});
+
+smokeBackground.addEventListener('click', () => {
+    document.body.classList.remove('nav-open');
 });

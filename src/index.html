@@ -12,14 +12,15 @@
 <body>
     <div class="dotted-background"></div>
     <div class="overlay-background"></div>
+    <div id="smokeBackground" class="nav-smoke-background"></div>
     <header id="header" class="page-header">
-        <img src="https://avatars.githubusercontent.com/ShankarBUS" alt="ShankarBUS" class="avatar">
-        <label>ShankarBUS</label>
         <button class="hamburger" id="hamburgerMenu">
             <div></div>
             <div></div>
             <div></div>
         </button>
+        <img src="https://avatars.githubusercontent.com/ShankarBUS" alt="ShankarBUS" class="avatar">
+        <label>ShankarBUS</label>
         <nav id="navBar" class="navbar">
             <ul id="navList" class="navlist">
                 <li><a href="#basic-info">Basic Info</a></li>
@@ -53,36 +54,39 @@
         <div class="column column-2">
             <div class="group">
                 <h2 id="github-stats">GitHub Stats</h2>
-                <div class="sub-group">
+                <div class="sub-group gh">
                     <h3>Organizations</h3>
                     <div id="orgsContainer" class="cards-grid"></div>
                 </div>
-                <div class="sub-group">
+                <div class="sub-group gh">
                     <h3>Projects</h3>
                     <div id="projectsContainer" class="cards-grid"></div>
                 </div>
+                <div id="ghLoadFailed" class="gh-error-message">Can't get data from GitHub.
+                    Please try some time later.</div>
                 <div id="ghLoadingProgressBar" class="loading-progress-bar" aria-hidden="true"></div>
             </div>
             <div class="group">
                 <h2 id="skills">Skills</h2>
                 <div class="sub-group">
-                    <h3>Programming</h3>
-                    <div id="psBadgeArea" class="badge-area"></div>
-                </div>
-                <div class="sub-group">
                     <h3>Tech</h3>
                     <div id="tsBadgeArea" class="badge-area"></div>
+                </div>
+                <div class="sub-group">
+                    <h3>Programming</h3>
+                    <div id="psBadgeArea" class="badge-area"></div>
                 </div>
             </div>
         </div>
         </section>
-
-        <div id="messagePopup" class="popup" aria-hidden="true">
-            <div id="popupContent" class="popup-content">
-                <button id="closePopup" aria-label="Close Popup">OK</button>
-                <p id="popupText"></p>
-            </div>
+    </div>
+    <div id="messagePopup" class="popup" aria-hidden="true">
+        <div id="popupContent" class="popup-content">
+            <button id="closePopup" aria-label="Close Popup">OK</button>
+            <p id="popupText"></p>
         </div>
-        <script type="module" src="script.js"></script>
+    </div>
+    <script type="module" src="script.js"></script>
 </body>
+
 </html>
