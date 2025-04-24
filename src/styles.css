@@ -48,6 +48,10 @@
     transition: all var(--animation-duration) var(--animation-ease);
 }
 
+html {
+    scroll-padding-top: 110px;
+}
+
 body {
     font-family: var(--font-family);
     font-size: 16px;

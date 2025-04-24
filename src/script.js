@@ -299,6 +299,7 @@ loadProfile();
 
 const header = document.getElementById("header");
 window.addEventListener("scroll", () => {
+    document.body.classList.remove('nav-open');
     const currentScroll = window.pageYOffset;
     if (currentScroll > 50) {
         header.classList.add("sticky");
