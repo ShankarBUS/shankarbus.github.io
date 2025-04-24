@@ -225,7 +225,7 @@ strong {
 a {
     text-decoration: none;
     color: var(--focus-color);
-    padding: 4px;
+    padding: 4px 8px;
     border-radius: var(--control-corner-radius);
 }
 
@@ -416,6 +416,14 @@ button:active {
     margin: 0px;
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
+}
+
+.socials-list li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
 }
 
@@ -603,7 +611,7 @@ body.github-load-error .gh-error-message {
     display: block;
 }
 
-.error-message {
+.gh-error-message {
     display: none;
 }
 

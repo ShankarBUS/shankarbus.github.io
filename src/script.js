@@ -231,6 +231,12 @@ function displayAchievements(achievements) {
     achievementsContainer.appendChild(achievementsList);
 }
 
+function getSocialMediaUserName(name, url) {
+    if (name == 'email') return url;
+    if (name == 'instagram') return url.split('/')[3];
+    else return '@ShankarBUS';
+}
+
 function displaySocialMediaLinks(socialMediaLinks) {
     if (!socialMediaLinks) return;
 
@@ -240,10 +246,18 @@ function displaySocialMediaLinks(socialMediaLinks) {
 
     for (const [name, url] of Object.entries(socialMediaLinks)) {
         const listItem = document.createElement('li');
+
+        // name.charAt(0).toUpperCase() + name.slice(1);
+
+        const img = document.createElement('img');
+        img.src = `./assests/${name}_16.svg`;
+        img.alt = `${name} logo`;
+        listItem.appendChild(img);
+
         const link = document.createElement('a');
-        link.href = url;
+        link.href = name == 'email' ? 'mailto:' : '' + url;
         link.target = '_blank';
-        link.textContent = name.charAt(0).toUpperCase() + name.slice(1); // Capitalize the first letter of the key
+        link.textContent = getSocialMediaUserName(name, url);
         link.className = 'social-link';
         listItem.appendChild(link);
         list.appendChild(listItem);
