@@ -3,7 +3,7 @@ function createBadge(content, className, iconSrc = null) {
     badgeContainer.className = `badge ${className}`;
     if (iconSrc) {
         const icon = document.createElement('img');
-        icon.src = `./assests/icons/${iconSrc}`;
+        icon.src = `./assests/${iconSrc}`;
         badgeContainer.appendChild(icon);
     }
     const badge = document.createElement('span');
@@ -249,7 +249,7 @@ function displaySocialMediaLinks(socialMediaLinks) {
         // name.charAt(0).toUpperCase() + name.slice(1);
 
         const img = document.createElement('img');
-        img.src = `./assests/icons/${name}_16.svg`;
+        img.src = `./assests/${name}_16.svg`;
         img.alt = `${name} logo`;
         listItem.appendChild(img);
 
