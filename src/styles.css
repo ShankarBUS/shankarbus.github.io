@@ -62,6 +62,10 @@ body {
     padding: 0px;
 }
 
+body.popup-open {
+    overflow: hidden;
+}
+
 .dotted-background {
     background-position: 0 0, 14px 14px;
     background-size: 16px 16px;
@@ -150,6 +154,8 @@ header label {
     flex-direction: column;
     cursor: pointer;
     justify-content: space-between;
+    background: none;
+    border: 1px solid transparent;
     height: 32px;
     padding: 10px 8px;
 }
@@ -164,7 +170,7 @@ header label {
     background-color: var(--focus-color);
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1024px) {
     .hamburger {
         display: flex;
     }
@@ -263,19 +269,11 @@ button:active {
     background-color: transparent;
 }
 
-.square-button {
-    padding: 8px;
-    height: 42px;
-    width: 42px;
-    border: 1px solid transparent;
-    background-color: transparent;
-}
-
 .svg-path {
     fill: var(--text-color);
 }
 
-.button:hover .footer-svg-path {
+button:hover .svg-path {
     fill: var(--focus-color);
 }
 
@@ -519,67 +517,19 @@ button:active {
     color: #0e0e0e;
 }
 
-/* 
-.accordion-button {
-    width: 100%;
-    height: 180px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
-
-.accordion-item-content {
-    display: none;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-top: none;
-    border-radius: 0 0 var(--control-corner-radius) var(--control-corner-radius);
-    background-color: var(--panel-background);
-    color: var(--text-color);
-    animation: slideDown var(--animation-duration) var(--animation-ease);
-    margin-top: calc(-1 * var(--control-corner-radius));
-    padding-top: calc(10px + var(--control-corner-radius));
-    position: relative;
-    z-index: -1;
-}
-
-footer {
-    display: flex;
-    gap: 8px;
-    padding: 8px;
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    text-align: right;
-    align-items: center;
-    justify-content: space-between;
-    transition: none;
-}
-
-body.results-fetched footer {
-    background: var(--panel-background);
-    backdrop-filter: var(--blur-effect);
-    border: 1px solid var(--border-color);
-    bottom: 8px;
+.thumbnail {
+    max-width: 100%;
+    max-height: 100%;
     border-radius: var(--control-corner-radius);
-    right: 8px;
 }
-
-footer p {
-    margin: 0px 8px;
-}
-*/
 
 .popup {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: var(--smoke-background-color);
     backdrop-filter: var(--blur-effect);
     z-index: 1000;
@@ -636,18 +586,6 @@ body.github-load-error .gh-error-message {
     animation: indeterminateAnimation 1.5s infinite linear;
 }
 
-@keyframes slideDown {
-    from {
-        max-height: 0;
-        opacity: 0;
-    }
-
-    to {
-        max-height: 500px;
-        opacity: 1;
-    }
-}
-
 @keyframes indeterminateAnimation {
     0% {
         transform: translateX(0) scaleX(0);
@@ -660,4 +598,73 @@ body.github-load-error .gh-error-message {
     100% {
         transform: translateX(100%) scaleX(0.5);
     }
+}
+
+#imageViewerContent {
+    width: 100%;
+    height: 100%;
+    background-color: var(--panel-background);
+}
+
+#imageViewerDetails {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background: linear-gradient(to top, #0e0e0e 0%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 10px 10px 10px;
+    color: #ffffff;
+}
+
+.image-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 32px;
+    width: 32px;
+    padding: 4px;
+    color: var(--text-color);
+    background: transparent;
+    border: 1px solid transparent;
+    z-index: 10;
+}
+
+.image-nav-button {
+    position: absolute;
+    top: 50%;
+    padding: 6px 2px;
+    transform: translateY(-50%);
+    background-color: var(--smoke-background-color);
+    border: none;
+    color: var(--text-color);
+    z-index: 10;
+}
+
+.image-nav-button.prev {
+    border-radius: 0 var(--control-corner-radius) var(--control-corner-radius) 0;
+    left: 0px;
+    padding-left: 0px;
+}
+
+.image-nav-button.next {
+    border-radius: var(--control-corner-radius) 0 0 var(--control-corner-radius);
+    right: 0px;
+    padding-right: 0px;
+}
+
+.image-container {
+    align-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: 100%;
 }

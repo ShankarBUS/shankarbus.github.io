@@ -1,10 +1,9 @@
-
 function createBadge(content, className, iconSrc = null) {
     const badgeContainer = document.createElement('div');
     badgeContainer.className = `badge ${className}`;
     if (iconSrc) {
         const icon = document.createElement('img');
-        icon.src = `./assests/${iconSrc}`;
+        icon.src = `./assests/icons/${iconSrc}`;
         badgeContainer.appendChild(icon);
     }
     const badge = document.createElement('span');
@@ -250,7 +249,7 @@ function displaySocialMediaLinks(socialMediaLinks) {
         // name.charAt(0).toUpperCase() + name.slice(1);
 
         const img = document.createElement('img');
-        img.src = `./assests/${name}_16.svg`;
+        img.src = `./assests/icons/${name}_16.svg`;
         img.alt = `${name} logo`;
         listItem.appendChild(img);
 
@@ -282,6 +281,33 @@ function displaySkills(detailsConfig) {
     }
 }
 
+function displayRenders(renders) {
+    if (!renders) return;
+
+    const rendersContainer = document.getElementById('rendersContainer');
+
+    renders.forEach((render, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const thumbnail = document.createElement('img');
+        thumbnail.src = render.url;
+        thumbnail.alt = render.title;
+        thumbnail.className = 'thumbnail';
+        card.appendChild(thumbnail);
+
+        const title = document.createElement('h4');
+        title.textContent = render.title;
+        card.appendChild(title);
+
+        card.addEventListener('click', () => {
+            showImageViewer(index, renders);
+        });
+
+        rendersContainer.appendChild(card);
+    });
+}
+
 function loadDetails(detailsConfig) {
     if (!detailsConfig) return;
 
@@ -290,22 +316,19 @@ function loadDetails(detailsConfig) {
     displayAchievements(detailsConfig.achievements);
     displaySocialMediaLinks(detailsConfig.socialMediaLinks);
     displaySkills(detailsConfig);
+    displayRenders(detailsConfig.renders);
 }
 
 //#endregion
 
 async function loadProfile() {
-
     try {
         const response = await fetch('./details.config.json');
         const detailsConfig = await response.json();
         loadDetails(detailsConfig);
-
         await loadGithubProfile();
-    }
-    catch (error) {
+    } catch (error) {
         console.error('Error loading profile data:', error);
-        showMessagePopup('Error loading profile data. Please try again later.');
     }
 }
 
@@ -322,24 +345,51 @@ window.addEventListener("scroll", () => {
     }
 });
 
-const messagePopup = document.getElementById('messagePopup');
-const closePopup = document.getElementById('closePopup');
+function showImageViewer(index, renders) {
+    document.body.classList.add('popup-open');
+    const imageViewerPopup = document.getElementById('imageViewerPopup');
+    const imageContainer = document.getElementById('imageContainer');
+    const imageViewerImage = document.getElementById('imageViewerImage');
+    const imageTitle = document.getElementById('imageTitle');
+    const imageDescription = document.getElementById('imageDescription');
 
-function showMessagePopup(message) {
-    const messageText = document.getElementById('popupText');
-    messageText.textContent = message;
-    messagePopup.setAttribute('aria-hidden', 'false');
+    let currentIndex = index;
+
+    function updateViewer() {
+        const render = renders[currentIndex];
+        imageViewerImage.src = render.url;
+        imageViewerImage.alt = render.title;
+        imageTitle.textContent = render.title;
+        imageDescription.textContent = render.description;
+    }
+
+    document.getElementById('prevImage').addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + renders.length) % renders.length;
+        updateViewer();
+    });
+
+    document.getElementById('nextImage').addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % renders.length;
+        updateViewer();
+    });
+
+    imageContainer.addEventListener('click', (event) => {
+        if (event.target == imageContainer) closeImageViewer();
+    });
+
+    document.getElementById('closeImageViewer').addEventListener('click', () => {
+        closeImageViewer();
+    });
+
+    function closeImageViewer()
+    {
+        imageViewerPopup.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('popup-open');
+    }
+
+    imageViewerPopup.setAttribute('aria-hidden', 'false');
+    updateViewer();
 }
-
-function hideMessagePopup() {
-    messagePopup.setAttribute('aria-hidden', 'true');
-}
-
-closePopup.addEventListener('click', () => hideMessagePopup());
-
-messagePopup.addEventListener('click', (event) => {
-    if (event.target === messagePopup) hideMessagePopup();
-});
 
 const hamburgerMenu = document.getElementById('hamburgerMenu');
 const smokeBackground = document.getElementById('smokeBackground');

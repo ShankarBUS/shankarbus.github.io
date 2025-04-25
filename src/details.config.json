@@ -1,6 +1,6 @@
 {
     "biodata": {
-        "name": "Umashankar",
+        "name": "B.Umashankar",
         "age": "24",
         "location": "India"
     },
@@ -44,7 +44,7 @@
         "Git",
         "Unity Game Engine"
     ],
-    "techSkills" : [
+    "techSkills": [
         "Windows App Development",
         "Web Development",
         "Game Development",
@@ -54,5 +54,57 @@
         "Video Editing: After Effects, Premiere Pro",
         "UI Design: Figma",
         "Microsoft Office"
+    ],
+    "renders": [
+        {
+            "title": "JAWA Classic 300",
+            "description": "A WIP 3D model of a friend's bike.",
+            "url": "./assests/images/jawa_classic_300.png"
+        },
+        {
+            "title": "Moon",
+            "description": "A 3D render of the moon in the space.",
+            "url": "./assests/images/moon.jpg"
+        },
+        {
+            "title": "Purple Clouds Moon",
+            "description": "A 3D render of the moon surrounded by purple clouds.",
+            "url": "./assests/images/moon_purple.jpg"
+        },
+        {
+            "title": "Green Clouds Moon",
+            "description": "A 3D render of the moon surrounded by green clouds.",
+            "url": "./assests/images/moon_green.jpg"
+        },
+        {
+            "title": "Medical Tools & Ambulance",
+            "description": "A 3D render of medical tools and an ambulance.",
+            "url": "./assests/images/medical_tools.png"
+        },
+        {
+            "title": "Dagger In My Heart",
+            "description": "A glass heart with fire inside being stabbed by a dagger.",
+            "url": "./assests/images/daggerin_myheart.png"
+        },
+        {
+            "title": "Neon Logo",
+            "description": "A neon sign of my logo in a brick wall.",
+            "url": "./assests/images/neon_logo.png"
+        },
+        {
+            "title": "Table, Table Lamp & Pooja Cabinet",
+            "description": "A 3D render of a table, table lamp and a pooja cabinet.",
+            "url": "./assests/images/table.png"
+        },
+        {
+            "title": "Torch Light",
+            "description": "A 3D render of my grandfather's torch light.",
+            "url": "./assests/images/torch.png"
+        },
+        {
+            "title": "Za Warudo",
+            "description": "A 3D render of earth.",
+            "url": "./assests/images/za_warudo.png"
+        }
     ]
 }
