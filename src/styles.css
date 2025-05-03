@@ -1,9 +1,5 @@
 @import url('https://shankarbus.github.io/kaadu-ui/kaadu-ui.css');
 
-html {
-    scroll-padding-top: 110px;
-}
-
 .avatar {
     width: 32px;
     height: 32px;
