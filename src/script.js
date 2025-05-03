@@ -1,3 +1,8 @@
+import { enableStickyHeader, enableHamburgerMenu, setupMessagePopup, showMessagePopup } from 'https://shankarbus.github.io/kaadu-ui/kaadu-ui.js';
+
+enableStickyHeader();
+enableHamburgerMenu();
+
 function createBadge(content, className, iconSrc = null) {
     const badgeContainer = document.createElement('div');
     badgeContainer.className = `badge ${className}`;
@@ -381,8 +386,7 @@ function showImageViewer(index, renders) {
         closeImageViewer();
     });
 
-    function closeImageViewer()
-    {
+    function closeImageViewer() {
         imageViewerPopup.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('popup-open');
     }
@@ -390,14 +394,3 @@ function showImageViewer(index, renders) {
     imageViewerPopup.setAttribute('aria-hidden', 'false');
     updateViewer();
 }
-
-const hamburgerMenu = document.getElementById('hamburgerMenu');
-const smokeBackground = document.getElementById('smokeBackground');
-
-hamburgerMenu.addEventListener('click', () => {
-    document.body.classList.toggle('nav-open');
-});
-
-smokeBackground.addEventListener('click', () => {
-    document.body.classList.remove('nav-open');
-});
