@@ -1,4 +1,4 @@
-import { enableStickyHeader, enableHamburgerMenu, setupMessagePopup, showMessagePopup } from 'https://shankarbus.github.io/kaadu-ui/kaadu-ui.js';
+import { enableStickyHeader, enableHamburgerMenu, createKeyValueTable } from 'https://shankarbus.github.io/kaadu-ui/kaadu-ui.js';
 
 enableStickyHeader();
 enableHamburgerMenu();
@@ -156,47 +156,12 @@ async function loadGithubProfile() {
 // #region Personal Details
 // from details.config.json
 
-function addKeyValueRowToTable(table, label, value) {
-    const row = document.createElement('tr');
-
-    const labelCell = document.createElement('td');
-    labelCell.textContent = label;
-    labelCell.className = 'label-cell';
-
-    const valueCell = document.createElement('td');
-    valueCell.appendChild(value);
-    valueCell.className = 'value-cell';
-
-    row.appendChild(labelCell);
-    row.appendChild(valueCell);
-    table.appendChild(row);
-};
-
-// Create a table with key-value pairs from a JSON Array
-// and apply a function to the value to get a html element.
-function createKeyValueTable(jsonArray, valuefun) {
-    const infoTable = document.createElement('table');
-    infoTable.className = 'info-table';
-
-    for (const [key, val] of Object.entries(jsonArray)) {
-        const label = key.charAt(0).toUpperCase() + key.slice(1); // Capitalize the first letter of the key
-        const value = valuefun(val);
-        addKeyValueRowToTable(infoTable, label, value);
-    }
-
-    return infoTable;
-}
-
 function displayBiodata(biodata) {
     if (!biodata) return;
 
     const biodataContainer = document.getElementById('biodataContainer');
 
-    const infoTable = createKeyValueTable(biodata, value => {
-        const valueElement = document.createElement('span');
-        valueElement.textContent = value;
-        return valueElement;
-    });
+    const infoTable = createKeyValueTable(biodata);
 
     biodataContainer.appendChild(infoTable);
 }
@@ -338,17 +303,6 @@ async function loadProfile() {
 }
 
 loadProfile();
-
-const header = document.getElementById("header");
-window.addEventListener("scroll", () => {
-    document.body.classList.remove('nav-open');
-    const currentScroll = window.pageYOffset;
-    if (currentScroll > 50) {
-        header.classList.add("sticky");
-    } else {
-        header.classList.remove("sticky");
-    }
-});
 
 function showImageViewer(index, renders) {
     document.body.classList.add('popup-open');
