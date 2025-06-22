@@ -194,6 +194,8 @@ function displayAchievements(achievements) {
         listItem.innerHTML = `<p>${achievement.year}</p><strong>${achievement.title}</strong><p>${achievement.description}</p>`;
         if (achievement.link)
             listItem.innerHTML += `<a href="${achievement.link}" target="_blank">Link</a>`;
+        if (achievement.image)
+            listItem.innerHTML += `<img class="achievement-image" src="${achievement.image}">`;
         achievementsList.appendChild(listItem);
     });
 
@@ -211,7 +213,7 @@ function displaySocialMediaLinks(socialMediaLinks) {
 
     const socialsContainer = document.getElementById('socialsContainer');
     const list = document.createElement('ul');
-    list.className = 'socials-list';
+    list.className = 'links-list';
 
     for (const [name, url] of Object.entries(socialMediaLinks)) {
         const listItem = document.createElement('li');
@@ -225,7 +227,6 @@ function displaySocialMediaLinks(socialMediaLinks) {
         link.href = name == 'email' ? 'mailto:' : '' + url;
         link.target = '_blank';
         link.textContent = getSocialMediaUserName(name, url);
-        link.className = 'social-link';
         listItem.appendChild(link);
         list.appendChild(listItem);
     }
@@ -237,7 +238,7 @@ function displaySites(sites) {
     if (!sites) return;
     const sitesContainer = document.getElementById('sitesContainer');
     const list = document.createElement('ul');
-    list.className = 'socials-list';
+    list.className = 'links-list';
     for (const [name, url] of Object.entries(sites)) {
         const listItem = document.createElement('li');
 
@@ -245,7 +246,6 @@ function displaySites(sites) {
         link.href = url;
         link.target = '_blank';
         link.textContent = name;
-        link.className = 'social-link';
         listItem.appendChild(link);
         list.appendChild(listItem);
     }
@@ -314,7 +314,7 @@ async function loadProfile() {
         const response = await fetch('./details.config.json');
         const detailsConfig = await response.json();
         loadDetails(detailsConfig);
-        await loadGithubProfile();
+        //await loadGithubProfile();
     } catch (error) {
         console.error('Error loading profile data:', error);
     }
