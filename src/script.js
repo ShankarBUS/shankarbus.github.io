@@ -314,7 +314,7 @@ async function loadProfile() {
         const response = await fetch('./details.config.json');
         const detailsConfig = await response.json();
         loadDetails(detailsConfig);
-        //await loadGithubProfile();
+        await loadGithubProfile();
     } catch (error) {
         console.error('Error loading profile data:', error);
     }

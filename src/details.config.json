@@ -50,7 +50,9 @@
         "C++",
         "Java",
         "Git",
-        "Unity Game Engine"
+        "Unity Game Engine",
+        "OpenCV",
+        "PowerShell"
     ],
     "techSkills": [
         "Windows App Development",
@@ -58,10 +60,16 @@
         "Game Development",
         "Cross Platform App Development",
         "Blender 3D",
-        "Photoshop",
-        "Video Editing: After Effects, Premiere Pro",
-        "UI Design: Figma",
-        "Microsoft Office"
+        "Photoshop: Image Editing & Graphic Design",
+        "Illustrator: Vector Graphics & Logo Design",
+        "Premiere Pro & After Effects: Video Editing & Motion Graphics",
+        "UI/UX Design",
+        "Microsoft Office",
+        "AI/ML",
+        "Cybersecurity",
+        "Automation",
+        "Micro-Controllers",
+        "Book, Flyer, Poster, Brochure & Pamphlet Design"
     ],
     "renders": [
         {
