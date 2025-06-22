@@ -216,8 +216,6 @@ function displaySocialMediaLinks(socialMediaLinks) {
     for (const [name, url] of Object.entries(socialMediaLinks)) {
         const listItem = document.createElement('li');
 
-        // name.charAt(0).toUpperCase() + name.slice(1);
-
         const img = document.createElement('img');
         img.src = `./assets/icons/${name}_16.svg`;
         img.alt = `${name} logo`;
@@ -233,6 +231,25 @@ function displaySocialMediaLinks(socialMediaLinks) {
     }
 
     socialsContainer.appendChild(list);
+}
+
+function displaySites(sites) {
+    if (!sites) return;
+    const sitesContainer = document.getElementById('sitesContainer');
+    const list = document.createElement('ul');
+    list.className = 'socials-list';
+    for (const [name, url] of Object.entries(sites)) {
+        const listItem = document.createElement('li');
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.textContent = name;
+        link.className = 'social-link';
+        listItem.appendChild(link);
+        list.appendChild(listItem);
+    }
+    sitesContainer.appendChild(list);
 }
 
 function displaySkills(detailsConfig) {
@@ -285,6 +302,7 @@ function loadDetails(detailsConfig) {
     displayEducation(detailsConfig.education);
     displayAchievements(detailsConfig.achievements);
     displaySocialMediaLinks(detailsConfig.socialMediaLinks);
+    displaySites(detailsConfig.sites);
     displaySkills(detailsConfig);
     displayRenders(detailsConfig.renders);
 }

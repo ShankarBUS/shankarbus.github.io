@@ -28,6 +28,13 @@
         "youtube": "https://youtube.com/@ShankarBUS",
         "email": "shankarbus04082001@gmail.com"
     },
+    "sites": {
+        "ECG": "https://shankarbus.github.io/ecg",
+        "MedCalc": "https://shankarbus.github.io/medcalc",
+        "Kaadu UI": "https://shankarbus.github.io/kaadu-ui",
+        "Exam Results": "https://shankarbus.github.io/examresults",
+        "Fake GPS": "https://shankarbus.github.io/ultratruequantumcertifiedgpsmapcamerapromax50000"
+    },
     "programmingSkills": [
         "C#",
         "VB.NET",
