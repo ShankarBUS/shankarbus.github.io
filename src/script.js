@@ -1,7 +1,6 @@
-import { enableStickyHeader, enableHamburgerMenu, createKeyValueTable } from 'https://shankarbus.github.io/kaadu-ui/kaadu-ui.js';
+import { enableStickyHeader, createKeyValueTable } from 'https://shankarbus.github.io/kaadu-ui/kaadu-ui.js';
 
 enableStickyHeader();
-enableHamburgerMenu();
 
 function createBadge(content, className, iconSrc = null) {
     const badgeContainer = document.createElement('div');
@@ -195,7 +194,7 @@ function displayAchievements(achievements) {
         if (achievement.link)
             listItem.innerHTML += `<a href="${achievement.link}" target="_blank">Link</a>`;
         if (achievement.image)
-            listItem.innerHTML += `<img class="achievement-image" src="${achievement.image}">`;
+            listItem.innerHTML += `<img class="achievement-image" src="./assets/images/${achievement.image}">`;
         achievementsList.appendChild(listItem);
     });
 
@@ -278,7 +277,7 @@ function displayRenders(renders) {
         card.className = 'card';
 
         const thumbnail = document.createElement('img');
-        thumbnail.src = render.url;
+        thumbnail.src = "./assets/thumbnails/" + render.image;
         thumbnail.alt = render.title;
         thumbnail.className = 'thumbnail';
         card.appendChild(thumbnail);
@@ -322,47 +321,47 @@ async function loadProfile() {
 
 loadProfile();
 
+const imgViewerDialog = document.getElementById('imageViewerDialog');
+const imageContainer = document.getElementById('imageContainer');
+const imageViewerImage = document.getElementById('imageViewerImage');
+const imageTitle = document.getElementById('imageTitle');
+const imageDescription = document.getElementById('imageDescription');
+let currentIndex = 0;
+let _renders = [];
+
+function updateViewer() {
+    const render = _renders[currentIndex];
+    imageViewerImage.src = "./assets/images/" + render.image;
+    imageViewerImage.alt = render.title;
+    imageTitle.textContent = render.title;
+    imageDescription.textContent = render.description;
+}
+
 function showImageViewer(index, renders) {
-    document.body.classList.add('popup-open');
-    const imageViewerPopup = document.getElementById('imageViewerPopup');
-    const imageContainer = document.getElementById('imageContainer');
-    const imageViewerImage = document.getElementById('imageViewerImage');
-    const imageTitle = document.getElementById('imageTitle');
-    const imageDescription = document.getElementById('imageDescription');
-
-    let currentIndex = index;
-
-    function updateViewer() {
-        const render = renders[currentIndex];
-        imageViewerImage.src = render.url;
-        imageViewerImage.alt = render.title;
-        imageTitle.textContent = render.title;
-        imageDescription.textContent = render.description;
-    }
-
-    document.getElementById('prevImage').addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + renders.length) % renders.length;
-        updateViewer();
-    });
-
-    document.getElementById('nextImage').addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % renders.length;
-        updateViewer();
-    });
-
-    imageContainer.addEventListener('click', (event) => {
-        if (event.target == imageContainer) closeImageViewer();
-    });
-
-    document.getElementById('closeImageViewer').addEventListener('click', () => {
-        closeImageViewer();
-    });
-
-    function closeImageViewer() {
-        imageViewerPopup.setAttribute('aria-hidden', 'true');
-        document.body.classList.remove('popup-open');
-    }
-
-    imageViewerPopup.setAttribute('aria-hidden', 'false');
+    _renders = renders;
+    currentIndex = index;
+    imgViewerDialog.showModal();
     updateViewer();
+}
+
+imageContainer.addEventListener('click', (event) => {
+    if (event.target == imageContainer) closeImageViewer();
+});
+
+document.getElementById('prevImage').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + _renders.length) % _renders.length;
+    updateViewer();
+});
+
+document.getElementById('nextImage').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % _renders.length;
+    updateViewer();
+});
+
+document.getElementById('closeImageViewer').addEventListener('click', () => {
+    closeImageViewer();
+});
+
+function closeImageViewer() {
+    imgViewerDialog.close();
 }

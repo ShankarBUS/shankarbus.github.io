@@ -1,14 +1,14 @@
 {
     "biodata": {
         "name": "B.Umashankar",
-        "age": "24",
+        "age": "25",
         "location": "India"
     },
     "education": [
         {
             "institution": "Tirunelveli Medical College, Tirunelveli.",
             "course": "Bachelor of Medicine, Bachelor of Surgery (MBBS)",
-            "duration": "2021 - Present"
+            "duration": "2021 - 2026"
         }
     ],
     "achievements": [
@@ -16,7 +16,7 @@
             "title": "Microsoft Store App Awards 2022",
             "year": 2022,
             "description": "ModernFlyouts: Winner in the Open Platform Category",
-            "image": "./assets/images/modernflyouts_microsoft_store_app_awards_2022.jpg",
+            "image": "modernflyouts_microsoft_store_app_awards_2022.jpg",
             "link": "https://blogs.windows.com/windowsdeveloper/2022/05/27/announcing-the-microsoft-store-app-awards-winners/"
         }
     ],
@@ -34,7 +34,8 @@
         "MedCalc": "https://shankarbus.github.io/medcalc",
         "Kaadu UI": "https://shankarbus.github.io/kaadu-ui",
         "Exam Results": "https://shankarbus.github.io/examresults",
-        "Fake GPS": "https://shankarbus.github.io/ultratruequantumcertifiedgpsmapcamerapromax50000"
+        "Fake GPS": "https://shankarbus.github.io/ultratruequantumcertifiedgpsmapcamerapromax50000",
+        "Discharge Summary Generator": "https://shankarbus.github.io/dischargen"
     },
     "programmingSkills": [
         "C#",
@@ -75,52 +76,52 @@
         {
             "title": "JAWA Classic 300",
             "description": "A WIP 3D model of a friend's bike.",
-            "url": "./assets/images/jawa_classic_300.png"
+            "image": "jawa_classic_300.png"
         },
         {
             "title": "Moon",
             "description": "A 3D render of the moon in the space.",
-            "url": "./assets/images/moon.jpg"
+            "image": "moon.jpg"
         },
         {
             "title": "Purple Clouds Moon",
             "description": "A 3D render of the moon surrounded by purple clouds.",
-            "url": "./assets/images/moon_purple.jpg"
+            "image": "moon_purple.jpg"
         },
         {
             "title": "Green Clouds Moon",
             "description": "A 3D render of the moon surrounded by green clouds.",
-            "url": "./assets/images/moon_green.jpg"
+            "image": "moon_green.jpg"
         },
         {
             "title": "Medical Tools & Ambulance",
             "description": "A 3D render of medical tools and an ambulance.",
-            "url": "./assets/images/medical_tools.png"
+            "image": "medical_tools.png"
         },
         {
             "title": "Dagger In My Heart",
             "description": "A glass heart with fire inside being stabbed by a dagger.",
-            "url": "./assets/images/daggerin_myheart.png"
+            "image": "daggerin_myheart.png"
         },
         {
             "title": "Neon Logo",
             "description": "A neon sign of my logo in a brick wall.",
-            "url": "./assets/images/neon_logo.png"
+            "image": "neon_logo.png"
         },
         {
             "title": "Table, Table Lamp & Pooja Cabinet",
             "description": "A 3D render of a table, table lamp and a pooja cabinet.",
-            "url": "./assets/images/table.png"
+            "image": "table.png"
         },
         {
             "title": "Torch Light",
             "description": "A 3D render of my grandfather's torch light.",
-            "url": "./assets/images/torch.png"
+            "image": "torch.png"
         },
         {
             "title": "Za Warudo",
             "description": "A 3D render of earth.",
-            "url": "./assets/images/za_warudo.png"
+            "image": "za_warudo.png"
         }
     ]
 }
