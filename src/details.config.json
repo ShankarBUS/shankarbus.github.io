@@ -35,7 +35,8 @@
         "Kaadu UI": "https://shankarbus.github.io/kaadu-ui",
         "Exam Results": "https://shankarbus.github.io/examresults",
         "Fake GPS": "https://shankarbus.github.io/ultratruequantumcertifiedgpsmapcamerapromax50000",
-        "Discharge Summary Generator": "https://shankarbus.github.io/dischargen"
+        "Discharge Summary Generator": "https://shankarbus.github.io/dischargen",
+        "TN HMIS Wiki": "https://shankarbus.github.io/tn-hmis-wiki"
     },
     "programmingSkills": [
         "C#",
@@ -48,12 +49,7 @@
         "HTML",
         "CSS",
         "Python",
-        "C++",
-        "Java",
-        "Git",
-        "Unity Game Engine",
-        "OpenCV",
-        "PowerShell"
+        "C++"
     ],
     "techSkills": [
         "Windows App Development",
@@ -61,13 +57,11 @@
         "Game Development",
         "Cross Platform App Development",
         "Blender 3D",
-        "Photoshop: Image Editing & Graphic Design",
-        "Illustrator: Vector Graphics & Logo Design",
-        "Premiere Pro & After Effects: Video Editing & Motion Graphics",
+        "Image Editing & Graphic Design",
+        "Vector Graphics & Logo Design",
+        "Video Editing & Motion Graphics",
         "UI/UX Design",
         "Microsoft Office",
-        "AI/ML",
-        "Cybersecurity",
         "Automation",
         "Micro-Controllers",
         "Book, Flyer, Poster, Brochure & Pamphlet Design"
