@@ -1,6 +1,6 @@
 {
     "biodata": {
-        "name": "B.Umashankar",
+        "name": "Dr. B. Umashankar",
         "age": "25",
         "location": "India"
     },
@@ -68,6 +68,14 @@
     ],
     "renders": [
         {
+            "title": "Symptum: Mockup Sketch",
+            "description": "A render of sketching process of the Symptum logo.",
+            "image": "symptum_sketch.png"
+        },        {
+            "title": "Symptum Glass",
+            "description": "A 3D render of the Symptum logo in glass surrounded by glass ribbons and orbs.",
+            "image": "symptum_glass.png"
+        },        {
             "title": "JAWA Classic 300",
             "description": "A WIP 3D model of a friend's bike.",
             "image": "jawa_classic_300.png"

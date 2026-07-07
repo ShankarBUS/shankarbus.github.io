@@ -54,7 +54,7 @@
 .org-details .avatar {
     width: 32px;
     height: 32px;
-    border-radius: calc(var(--control-corner-radius) / 2);
+    border-radius: var(--radius-sm);
     background-color: var(--c-bg);
     border: 1px solid var(--c-border);
 }
